@@ -42,6 +42,9 @@ public:
 	void printAllItems();
 	void saveItemsToFile(string filename);
 	void loadItemsFromFile(string filename);
+	Item* findItem(int id);
+	Item* searchByCatergory(string category);
+	void updateItem(int id, string name, string category, int quantity);
 };
 
 void Inventory::addItem(Item item)
@@ -53,6 +56,7 @@ void Inventory::addItem(Item item)
 		if(i.getID() == item.getID())
 		{
 			cout<<"Item already exists in the system"<<endl;
+			cout<<"-----------------------------------------------------------"<<endl;
 			found = true;
 			break;
 		}
@@ -62,6 +66,7 @@ void Inventory::addItem(Item item)
 	{
 		inventoryItems.push_back(item);
 		cout<<item.getQuantity()<<" "<<item.getItemName()<<"(s) have been added successfully"<<endl;
+		cout<<"-----------------------------------------------------------"<<endl;
 	}
 }
 
@@ -74,6 +79,7 @@ void Inventory::deleteItem(int id)
 		if(i->getID() == id)
 		{
 			cout<<i->getItemName()<<" has been deleted from the system"<<endl;
+			cout<<"-----------------------------------------------------------"<<endl;
 			inventoryItems.erase(i);
 			found = true;
 			break;
@@ -90,12 +96,12 @@ void Inventory::printAllItems()
 {
 	for(auto& i : inventoryItems)
 	{
-		cout<<"-------------------------------------------------"<<endl;
+		cout<<"-----------------------------------------------------------"<<endl;
 		cout<<"ID: "<<i.getID()<<endl;
 		cout<<"Item Name: "<<i.getItemName()<<endl;
 		cout<<"Quantity: "<<i.getQuantity()<<endl;
 		cout<<"Category: "<<i.getCategory()<<endl;
-		cout<<"-------------------------------------------------"<<endl;
+		cout<<"-----------------------------------------------------------"<<endl;
 	}
 }
 
@@ -138,88 +144,55 @@ void Inventory::loadItemsFromFile(string filename)
         file.close();
     } else {
             cout << "Error: Could not open file " << filename << endl;
+            cout<<"-----------------------------------------------------------"<<endl;
     }
 }
 
-int main()
+Item* Inventory::findItem(int id)
 {
-	Inventory inventory;
-
-	char userInput;
-
-	do
+	for(auto i = inventoryItems.begin(); i != inventoryItems.end(); i++)
 	{
-		cout<<"Choose an action to preform"<<endl;
-		cout<<"1. Add an item"<<endl;
-		cout<<"2. Remove an item"<<endl;
-		cout<<"3. View all items"<<endl;
-		cout<<"4. Save"<<endl;
-		cout<<"5. Load"<<endl;
-		cout<<"Q. Exit"<<endl;
-		cin>>userInput;
+		if(i->getID()==id)
+        {
+            return &(*i);
+        }
+	}
+	return nullptr;
+}
 
-		switch(userInput)
+void Inventory::updateItem(int id, string name, string category, int quantity)
+{
+	bool found = false;
+
+	for(auto& i : inventoryItems)
+	{
+		if(i.getID() == id)
 		{
-		case '1':
-			{
-				int id;
-				string itemName;
-				string category;
-				int quantity;
-
-				cout<<"Enter ID number: "<<endl;
-				cin>>id;
-				cout<<"Enter the name of the item"<<endl;
-				cin>>itemName;
-				cout<<"Enter category of the item"<<endl;
-				cin>>category;
-				cout<<"Enter the quantity of item(s)"<<endl;
-				cin>>quantity;
-
-				Item item(itemName,category,id,quantity);
-				inventory.addItem(item);
-				break;
-			}
-		case '2':
-			{
-				int id;
-				cout<<"Enter product ID number"<<endl;
-				cin>>id;
-				inventory.deleteItem(id);
-				break;
-			}
-		case '3':
-			{
-				inventory.printAllItems();
-				break;
-			}
-		case '4':
-			{
-				inventory.saveItemsToFile("Inventory.csv");
-				cout << "Inventory saved to file." << endl;
-            	cout << "-----------------------------------------------------------" <<endl;
-            	break;
-			}
-		case '5':
-			{
-				inventory.loadItemsFromFile("Inventory.csv");
-            	cout << "Inventory loaded from file." << endl;
-            	cout << "-----------------------------------------------------------" <<endl;
-            	break;
-			}
-		case 'q':
-		case 'Q':
-			{
-				return 0;
-			}
-		default:
-			{
-				cout<<"Invalid selection, try again"<<endl;
-				cout << "-----------------------------------------------------------" <<endl;
-				break;
-			}
+			i.setItemName(name);
+			i.setCategory(category);
+			i.setQuantity(quantity);
+			found = true;
+			break;
 		}
-	} while(true);
+	}
+	if (!found)
+    {
+        cout << "ID does not exist." << endl;
+        cout<<"-----------------------------------------------------------"<<endl;
+    }
+}
 
-	return 0;
+Item* Inventory::searchByCatergory(string category)
+{
+	for (auto& i : inventoryItems) {
+    if (i.getCategory() == category) {
+    	cout<<"-----------------------------------------------------------"<<endl;
+      	cout<<"ID: "<<i.getID()<< endl;
+      	cout<<"Name: "<<i.getItemName()<<endl;
+      	cout<<"Category: "<<i.getCategory()<<endl;
+      	cout<<"Quantity: "<<i.getQuantity()<<endl;
+      	cout<<"-----------------------------------------------------------"<<endl;
+    }
+  }
+	return nullptr;
 }
