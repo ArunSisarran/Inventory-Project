@@ -41,6 +41,7 @@ public:
 	void deleteItem(int id);
 	void printAllItems();
 	void saveItemsToFile(string filename);
+	void loadItemsFromFile(string filename);
 };
 
 void Inventory::addItem(Item item)
@@ -89,6 +90,7 @@ void Inventory::printAllItems()
 {
 	for(auto& i : inventoryItems)
 	{
+		cout<<"-------------------------------------------------"<<endl;
 		cout<<"ID: "<<i.getID()<<endl;
 		cout<<"Item Name: "<<i.getItemName()<<endl;
 		cout<<"Quantity: "<<i.getQuantity()<<endl;
@@ -100,7 +102,6 @@ void Inventory::printAllItems()
 void Inventory::saveItemsToFile(string filename) 
 {
     ofstream file;
-
     file.open(filename, ios::out | ios::app);
     for (int i = 0; i < inventoryItems.size(); i++) 
         {
@@ -108,6 +109,36 @@ void Inventory::saveItemsToFile(string filename)
             file<<p.getID()<<","<<p.getItemName()<<","<<p.getCategory()<<","<<p.getQuantity()<<endl;
         }
     file.close();
+}
+
+void Inventory::loadItemsFromFile(string filename) 
+{
+    ifstream file;
+    file.open(filename);
+
+    if (file.is_open()) 
+    {
+        string line;
+        while (getline(file, line)) 
+        {
+           	stringstream ss(line);
+            string idStr, name, category, quantityStr;
+            getline(ss, idStr, ',');
+            getline(ss, name, ',');
+            getline(ss, category, ',');
+            getline(ss, quantityStr);
+
+            int id = stoi(idStr);
+            int quantity = stoi(quantityStr);
+
+            Item item(name,category,id,quantity);
+            inventoryItems.push_back(item);
+        }
+
+        file.close();
+    } else {
+            cout << "Error: Could not open file " << filename << endl;
+    }
 }
 
 int main()
@@ -121,8 +152,9 @@ int main()
 		cout<<"Choose an action to preform"<<endl;
 		cout<<"1. Add an item"<<endl;
 		cout<<"2. Remove an item"<<endl;
-		cout<<"3.View all items"<<endl;
+		cout<<"3. View all items"<<endl;
 		cout<<"4. Save"<<endl;
+		cout<<"5. Load"<<endl;
 		cout<<"Q. Exit"<<endl;
 		cin>>userInput;
 
@@ -146,6 +178,44 @@ int main()
 
 				Item item(itemName,category,id,quantity);
 				inventory.addItem(item);
+				break;
+			}
+		case '2':
+			{
+				int id;
+				cout<<"Enter product ID number"<<endl;
+				cin>>id;
+				inventory.deleteItem(id);
+				break;
+			}
+		case '3':
+			{
+				inventory.printAllItems();
+				break;
+			}
+		case '4':
+			{
+				inventory.saveItemsToFile("Inventory.csv");
+				cout << "Inventory saved to file." << endl;
+            	cout << "-----------------------------------------------------------" <<endl;
+            	break;
+			}
+		case '5':
+			{
+				inventory.loadItemsFromFile("Inventory.csv");
+            	cout << "Inventory loaded from file." << endl;
+            	cout << "-----------------------------------------------------------" <<endl;
+            	break;
+			}
+		case 'q':
+		case 'Q':
+			{
+				return 0;
+			}
+		default:
+			{
+				cout<<"Invalid selection, try again"<<endl;
+				cout << "-----------------------------------------------------------" <<endl;
 				break;
 			}
 		}
