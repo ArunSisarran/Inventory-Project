@@ -68,11 +68,11 @@ void Inventory::deleteItem(int id)
 {
 	bool found = false;
 
-	for(auto& i : inventoryItems)
+	for(auto i = inventoryItems.begin(); i != inventoryItems.end(); i++)
 	{
-		if(i.getID() == item.getID())
+		if(i->getID() == id)
 		{
-			cout<<i.getItemName()<<" has been deleted from the system"<<endl;
+			cout<<i->getItemName()<<" has been deleted from the system"<<endl;
 			inventoryItems.erase(i);
 			found = true;
 			break;
