@@ -7,6 +7,10 @@ int main()
 
 	char userInput;
 
+	cout<<"-----------------------------------------------------------"<<endl;
+	cout<<"----------------Inventory Management System----------------"<<endl;
+	cout<<"-----------------------------------------------------------"<<endl;
+
 	do
 	{
 		cout<<"Choose an action to preform"<<endl;
