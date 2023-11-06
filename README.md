@@ -4,6 +4,7 @@ An inventory program I made to help keep inventory organized at the MTA.
 * Adding items
 * Removing items
 * Updating items
+* Updating item quantities only
 * Search by ID number
 * Search by Category
 * Saving to CSV file for spreadsheets
