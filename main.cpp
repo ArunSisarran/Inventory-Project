@@ -19,9 +19,10 @@ int main()
 		cout<<"3. Find an item"<<endl;
 		cout<<"4. Search by category"<<endl;
 		cout<<"5. Update an item"<<endl;
-		cout<<"6. View all items"<<endl;
-		cout<<"7. Save"<<endl;
-		cout<<"8. Load"<<endl;
+		cout<<"6. Update an item's quantity"
+		cout<<"7. View all items"<<endl;
+		cout<<"8. Save"<<endl;
+		cout<<"9. Load"<<endl;
 		cout<<"Q. Exit"<<endl;
 		cin>>userInput;
 
@@ -102,17 +103,32 @@ int main()
 			}
 		case '6':
 			{
-				inventory.printAllItems();
+				int id;
+				int quantity;
+
+				cout<<"Enter the item ID to update"<<endl;
+				cin>>id;
+				cout<<"Enter new quantity"<<endl;
+				cin>>quantity;
+
+				inventory.updateItemQuantity(id,quantity);
+				cout<<"Updated successfully"<<endl;
+				cout<<"-----------------------------------------------------------"<<endl;
 				break;
 			}
 		case '7':
+			{
+				inventory.printAllItems();
+				break;
+			}
+		case '8':
 			{
 				inventory.saveItemsToFile("Inventory.csv");
 				cout << "Inventory saved to file." << endl;
             	cout << "-----------------------------------------------------------" <<endl;
             	break;
 			}
-		case '8':
+		case '9':
 			{
 				inventory.loadItemsFromFile("Inventory.csv");
             	cout << "Inventory loaded from file." << endl;

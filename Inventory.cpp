@@ -45,6 +45,7 @@ public:
 	Item* findItem(int id);
 	Item* searchByCatergory(string category);
 	void updateItem(int id, string name, string category, int quantity);
+	void upadateItemQuantity(int id, int quantity);
 };
 
 void Inventory::addItem(Item item)
@@ -195,4 +196,24 @@ Item* Inventory::searchByCatergory(string category)
     }
   }
 	return nullptr;
+}
+
+void Inventory::upadateItemQuantity(int id, int quantity)
+{
+	bool found = false;
+
+	for(auto& i : inventoryItems)
+	{
+		if(i.getID() == id)
+		{
+			i.setQuantity(quantity);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+    {
+        cout << "ID does not exist." << endl;
+        cout<<"-----------------------------------------------------------"<<endl;
+	}
 }
