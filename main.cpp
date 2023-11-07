@@ -31,20 +31,22 @@ int main()
 		case '1':
 			{
 				int id;
-				string itemName;
+				string name;
 				string category;
 				int quantity;
 
 				cout<<"Enter ID number: "<<endl;
 				cin>>id;
-				cout<<"Enter the name of the item (If the name is multiple words please sperate using a -)"<<endl;
-				cin>>itemName;
+				cout<<"Enter the name of the item"<<endl;
+				cin.ignore();
+				getline(cin, name);
 				cout<<"Enter category of the item"<<endl;
-				cin>>category;
+				cin.ignore();
+				getline(cin, category);
 				cout<<"Enter the quantity of item(s)"<<endl;
 				cin>>quantity;
 
-				Item item(itemName,category,id,quantity);
+				Item item(name,category,id,quantity);
 				inventory.addItem(item);
 				break;
 			}
@@ -77,7 +79,8 @@ int main()
 			{
 				string category;
 				cout<<"Enter a category: "<<endl;
-				cin>>category;
+				cin.ignore();
+				getline(cin, category);
 				inventory.searchByCatergory(category);
 				break;
 			}
@@ -91,9 +94,11 @@ int main()
 				cout<<"Enter the item ID to update"<<endl;
 				cin>>id;
 				cout<<"Enter new item name"<<endl;
-				cin>>name;
+				cin.ignore();
+				getline(cin, name);
 				cout<<"Enter new category"<<endl;
-				cin>>category;
+				cin.ignore();
+				getline(cin, category);
 				cout<<"Enter new quantity"<<endl;
 				cin>>quantity;
 				inventory.updateItem(id,name,category,quantity);
