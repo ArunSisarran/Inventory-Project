@@ -45,7 +45,7 @@ public:
 	Item* findItem(int id);
 	Item* searchByCatergory(string category);
 	void updateItem(int id, string name, string category, int quantity);
-	void upadateItemQuantity(int id, int quantity);
+	void updateItemQuantity(int id, int quantity);
 };
 
 void Inventory::addItem(Item item)
@@ -198,7 +198,7 @@ Item* Inventory::searchByCatergory(string category)
 	return nullptr;
 }
 
-void Inventory::upadateItemQuantity(int id, int quantity)
+void Inventory::updateItemQuantity(int id, int quantity)
 {
 	bool found = false;
 

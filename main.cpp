@@ -19,7 +19,7 @@ int main()
 		cout<<"3. Find an item"<<endl;
 		cout<<"4. Search by category"<<endl;
 		cout<<"5. Update an item"<<endl;
-		cout<<"6. Update an item's quantity"
+		cout<<"6. Update an item's quantity"<<endl;
 		cout<<"7. View all items"<<endl;
 		cout<<"8. Save"<<endl;
 		cout<<"9. Load"<<endl;
