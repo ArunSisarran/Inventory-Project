@@ -1,6 +1,6 @@
 # Inventory-Project
-An inventory program I made to help keep inventory organized at the MTA.
-## Functionality includes:
+An inventory program I made to help keep inventory organized at the MTA. The CSV file the data is saved to can be opened in Excel for help in making spreadsheets and reports.
+## Program functionality includes:
 * Adding items
 * Removing items
 * Updating items
