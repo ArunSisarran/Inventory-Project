@@ -37,7 +37,7 @@ int main()
 
 				cout<<"Enter ID number: "<<endl;
 				cin>>id;
-				cout<<"Enter the name of the item"<<endl;
+				cout<<"Enter the name of the item (If the name is multiple words please sperate using a -)"<<endl;
 				cin>>itemName;
 				cout<<"Enter category of the item"<<endl;
 				cin>>category;
